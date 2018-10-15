@@ -1,0 +1,3 @@
+
+2.docker run -it --name web4 -v /home/sharique/DevOps_Drill/DOckerExercise/access_log:/var/log/nginx/access.log -P -d exe2:nginx 
+

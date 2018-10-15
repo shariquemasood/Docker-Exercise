@@ -1,0 +1,36 @@
+version: "2"
+services:
+
+  nginx:
+    image: nginx
+    command: nginx -g "daemon off;"
+    links:
+      - tomcat
+    volumes:
+      #- /home/sharique/DevOps_Drill/DOckerExercise/default.conf:/etc/nginx/conf.d/default.conf
+      - /home/sharique/DevOps_Drill/DOckerExercise/nginx.conf:/etc/nginx/nginx.conf
+    container_name: app_nginx
+    ports:
+      - "80:80"
+    networks:
+        mynetwork:
+            aliases:
+                - nginx
+  tomcat:
+    image: tomcat:latest
+    working_dir: /usr/local/tomcat
+#command: catalina.sh run
+    container_name: app_tomcat
+    volumes:
+      -  /home/sharique/DevOps_Drill/DOckerExercise/sample/:/usr/local/tomcat/webapps/sample
+    ports:
+      - "9876:8080"
+    networks:
+        mynetwork:
+            aliases:
+                - web
+
+ 
+networks:
+  mynetwork:
+    driver: "bridge"
